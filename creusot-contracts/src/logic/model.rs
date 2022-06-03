@@ -43,3 +43,13 @@ impl<A: Model, B: Model> Model for (A, B) {
         }
     }
 }
+
+#[cfg(feature = "num_bigint")]
+impl Model for num_bigint::BigInt {
+    type ModelTy = crate::Int;
+    #[logic]
+    #[trusted]
+    fn model(self) -> Self::ModelTy {
+        pearlite! { absurd }
+    }
+}
